@@ -28,6 +28,7 @@ async function calculateKeyAndAddress(e) {
     const privKey = await sha256(concat);
     console.log("privKey", privKey);
     
+    document.getElementById("keyButton").innerHTML = "<button onclick='copyKey()'>Copy</button>";
     document.getElementById("keyContent").innerHTML = privKey;
     return false;
 }
@@ -45,6 +46,15 @@ if (!window.crypto.subtle) {
     //TODO redirect to something which imports Stanford Crypto Library or the like
 }
 
+function copyKey() {    
+    var range = document.createRange();
+    range.selectNode(document.getElementById("keyContent"));
+    window.getSelection().removeAllRanges(); // clear current selection
+    window.getSelection().addRange(range); // to select text
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();// to deselect
+}
+
         </script>
     </head>
     <body>
@@ -58,6 +68,6 @@ if (!window.crypto.subtle) {
         <input type="submit">
         </form>
         <h3>Private Key</h3>
-        <div id="keyContent"/>
+        <div id="keyWrapper"><span id="keyButton"></span> <span id="keyContent"></span></div>
     </body>
 </html>

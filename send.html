@@ -20,6 +20,36 @@ function stripNumbers() {
     y.value = y.value.replace(/\D/g,'');
 }
 
+function getText() {
+    const pwd = document.getElementById("passwordField").value;
+    let amountContent = document.getElementById("amountField").value.trim()
+    amountContent = amountContent.length > 0 ? amountContent : "some Ethereum cryptocurrency";
+    return `I'm sending you ${amountContent}! Go to https://texthereum.com/receive to retrieve it with the password: ${pwd}`;
+}
+
+function copyText() { copyToClipboard("textContent"); }
+function copyNumber() { copyToClipboard("numberContent"); }
+function copyAddress() { copyToClipboard("addressContent"); }
+
+function copyToClipboard(elementId) {    
+    var range = document.createRange();
+    range.selectNode(document.getElementById(elementId));
+    window.getSelection().removeAllRanges(); // clear current selection
+    window.getSelection().addRange(range); // to select text
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();// to deselect
+}
+
+function toggleSecurity() {
+    let cb = document.getElementById("securityCheckbox");
+    if (cb.checked==true) {
+        let confirmed = confirm("We believe in giving users the power to do what they want, but allowing passwords of any length and complexity might be a very bad idea. It'll be much easier to steal this cryptocurrency if it's protected by a weak password. Are you sure you want to do this?");
+        cb.checked = confirmed;
+    } else {
+        cb.checked = false;
+    }
+}
+
 async function calculateKeyAndAddress(e) {
     e.preventDefault();
     const x = document.getElementById("countryField").value;
@@ -36,6 +66,11 @@ async function calculateKeyAndAddress(e) {
     
     const address = keccak256(pubKey).slice(64 - 40);
     
+    document.getElementById("numberButton").innerHTML = "<button onclick='copyNumber()'>Copy</button>";
+    document.getElementById("numberContent").innerHTML = `+${x}${y}`;
+    document.getElementById("textButton").innerHTML = "<button onclick='copyText()'>Copy</button>";
+    document.getElementById("textContent").innerHTML = getText();
+    document.getElementById("addressButton").innerHTML = "<button onclick='copyAddress()'>Copy</button>";
     document.getElementById("addressContent").innerHTML = address;
     return false;
 }
@@ -58,16 +93,23 @@ if (!window.crypto.subtle) {
     <body>
         <h1>Texthereum</h1>
         <h2>Send</h2>
-        <form method="post" onsubmit="return calculateKeyAndAddress(event);">
-        <input id="countryField" type="text" name="countryCode" onchange="stripNumbers();" placeholder="Country code"></input>
-        <input id="numberField" type="text" name="number" onchange="stripNumbers();" placeholder="Phone number"></input>
-        <input id="passwordField" type="text" name="password" placeholder="Password"></input>
-        <a href="#" style="text-decoration:none" onclick="showPasswordField();">👁️</a>
-        <input type="submit">
+        <form method="post" onsubmit="calculateKeyAndAddress(event);">
+            <input id="amountField" type="text" size=30 name="amount" placeholder="Amount you'll send (optional)"></input>
+            <br/>
+            <input id="countryField" type="text" name="countryCode" onchange="stripNumbers();" placeholder="Country code"></input>
+            <input id="numberField" type="text" name="number" onchange="stripNumbers();" placeholder="Phone number"></input>
+            <input id="passwordField" type="text" name="password" placeholder="Password"></input>
+            <a href="#" style="text-decoration:none" onclick="showPasswordField();">👁️</a>
+            <br/>
+            <input id="securityCheckbox" type="checkbox" onclick="toggleSecurity();">Disable default password security requirements</input>
+            <br/>
+            <input type="submit">
         </form>
+        <h3>Number</h3>
+        <div id="numberWrapper"><span id="numberButton"></span> <span id="numberContent"></span></div>
         <h3>Text</h3>
-        <div id="textContent"/>
+        <div id="textWrapper"><span id="textButton"></span> <span id="textContent"></span></div>
         <h3>Address</h3>
-        <div id="addressContent"/>
+        <div id="addressWrapper"><span id="addressButton"></span> <span id="addressContent"></span></div>
     </body>
 </html>
