@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <script type="text/javascript" src="elliptic.min.js" language="javascript"></script>
+        <script type="text/javascript" src="sha3.js" language="javascript"></script>
+        <script language="javascript">
+
+function showPasswordField() {
+    var f = document.getElementById("passwordField");
+    if (f.type === "password") {
+        f.type = "text";
+    } else {
+        f.type = "password";
+    }
+}
+
+function stripNumbers() {
+    let x = document.getElementById("countryField");
+    x.value = x.value.replace(/\D/g,'');
+    let y = document.getElementById("numberField");
+    y.value = y.value.replace(/\D/g,'');
+}
+
+async function calculateKeyAndAddress(e) {
+    e.preventDefault();
+    const x = document.getElementById("countryField").value;
+    const y = document.getElementById("numberField").value;
+    const z = document.getElementById("passwordField").value;
+    const concat = "" + x + y + z;
+    console.log("concat", concat);
+    const privKey = await sha256(concat);
+    console.log("privKey", privKey);
+    
+    let ec = new elliptic.ec('secp256k1');
+    const pubKey = ec.keyFromPrivate(privKey, 'hex').getPublic('hex').slice(2);
+    console.log("pubKey", pubKey);
+    
+    const address = keccak256(pubKey).slice(64 - 40);
+    
+    document.getElementById("addressContent").innerHTML = address;
+    return false;
+}
+
+async function sha256(message) {
+    const msgBuffer = new TextEncoder('utf-8').encode(message);                    
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
+    return hashHex;
+}
+
+if (!window.crypto.subtle) {
+    alert("Old browser! No WebCrypto API! Do not use!");
+    //TODO redirect to something which imports Stanford Crypto Library or the like
+}
+
+        </script>
+    </head>
+    <body>
+        <h1>Texthereum</h1>
+        <h2>Send</h2>
+        <form method="post" onsubmit="return calculateKeyAndAddress(event);">
+        <input id="countryField" type="text" name="countryCode" onchange="stripNumbers();" placeholder="Country code"></input>
+        <input id="numberField" type="text" name="number" onchange="stripNumbers();" placeholder="Phone number"></input>
+        <input id="passwordField" type="text" name="password" placeholder="Password"></input>
+        <a href="#" style="text-decoration:none" onclick="showPasswordField();">👁️</a>
+        <input type="submit">
+        </form>
+        <h3>Text</h3>
+        <div id="textContent"/>
+        <h3>Address</h3>
+        <div id="addressContent"/>
+    </body>
+</html>
