@@ -1,7 +1,7 @@
 <html>
     <head>
         <script type="text/javascript" src="elliptic.min.js" language="javascript"></script> <!-- from https://github.com/indutny/elliptic -->
-        <script type="text/javascript" src="sha3.js" language="javascript"></script> <!-- from https://github.com/emn178/js-sha3 -->
+        <script type="text/javascript" src="crypto-api.min.js" language="javascript"></script> <!-- from https://github.com/nf404/crypto-api -->
         <script language="javascript">
 
 if (location.protocol !== 'https:' && location.protocol !== 'file:') {
@@ -27,8 +27,8 @@ function stripNumbers() {
 function getText() {
     const pwd = document.getElementById("passwordField").value;
     let amountContent = document.getElementById("amountField").value.trim()
-    amountContent = amountContent.length > 0 ? amountContent : "some Ethereum cryptocurrency";
-    return `I'm sending you ${amountContent}! Go to https://texthereum.com/receive to retrieve it with the password: ${pwd}`;
+    amountContent = amountContent.length > 0 ? amountContent : "some Bitcoin";
+    return `I'm sending you ${amountContent}! Go to https://btextc.com/receive to retrieve it with the password: ${pwd}`;
 }
 
 function copyText() { copyToClipboard("textContent"); }
@@ -62,7 +62,8 @@ async function calculateKeyAndAddress(e) {
     e.preventDefault();
     const c = document.getElementById("countryField").value;
     const n = document.getElementById("numberField").value;
-    
+    const p = document.getElementById("passwordField").value;
+
     if (c.length < 1) {
       alert("Country code is required");
       return;
@@ -78,7 +79,6 @@ async function calculateKeyAndAddress(e) {
       return;
     }
 
-    const p = document.getElementById("passwordField").value;
     let strict = !document.getElementById("securityCheckbox").checked;
     if (strict) {
       var valid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{10,40}$/;
@@ -94,51 +94,73 @@ async function calculateKeyAndAddress(e) {
     }
 
     const concat = "" + c + n + p;
-    const privKey = await sha256(concat);
+    const privKey = await sha256Hex(concat);
     
     let ec = new elliptic.ec('secp256k1');
     const generatorPoint = ec.g;
     const pubKeyCoordinates = generatorPoint.mul(privKey);
     const x = pubKeyCoordinates.getX().toString('hex',64);
     const y = pubKeyCoordinates.getY().toString('hex',64);
-    const pubKey = x + y;
-    console.log("pubKey", pubKey);
-    
-    const hashOfPubKey = keccak256(hexToBytes(pubKey));
-    console.log("hashOfPubKey", hashOfPubKey);
+    const lastY = y.slice(-1);
+    const prefix = '02468ace'.indexOf(lastY) >= 0 ? '02' : '03';
+    const pubKey = prefix + x;
+    console.log("compressed pubKey", pubKey);
 
-    const ethAddress = hashOfPubKey.slice(-40);
+    let address = await sha256Hex(pubKey);
+    console.log("sha256", address);
+
+    let msgBuffer = new Uint8Array(address.match(/[\da-f]{2}/gi).map(function (h) { return parseInt(h, 16); }));
+    let mder = CryptoApi.getHasher('ripemd160');
+    mder.update(CryptoApi.encoder.fromArrayBuffer(msgBuffer));
+    address = '00' + CryptoApi.encoder.toHex(mder.finalize());
+    console.log("networked ripemd160 hash", address);
+    
+    const firstHash = await sha256Hex(address);
+    const secondHash = await sha256Hex(firstHash);
+    const checksum = secondHash.slice(0,8);
+    console.log("checksumm", checksum);
+
+    const btcAddress = Uint8Array.from([...hexToBytes(address), ...hexToBytes(checksum)]);
+    const b58Address = to_b58(btcAddress);
     
     document.getElementById("numberButton").innerHTML = "<button onclick='copyNumber()'>Copy</button>";
     document.getElementById("numberContent").innerHTML = `+${c}${n}`;
     document.getElementById("textButton").innerHTML = "<button onclick='copyText()'>Copy</button>";
     document.getElementById("textContent").innerHTML = getText();
     document.getElementById("addressButton").innerHTML = "<button onclick='copyAddress()'>Copy</button>";
-    document.getElementById("addressContent").innerHTML = ethAddress;
+    document.getElementById("addressContent").innerHTML = b58Address;
     return false;
 }
 
-function hexToBytes(hex) {
-  if (!hex.match(/^[0-9a-fA-F]+$/)) {
-    throw new Error('is not a hex string.');
-  }
-  if (hex.length % 2 !== 0) {
-    hex = '0' + hex;
-  }
-  var bytes = [];
-  for (var n = 0; n < hex.length; n += 2) {
-    var code = parseInt(hex.substr(n, 2), 16);
-    bytes.push(code);
-  }
-  return bytes;
+async function sha256Hex(hexString) {
+    let msgBuffer = new Uint8Array(hexString.match(/[\da-f]{2}/gi).map(function (h) { return parseInt(h, 16); }));
+    let hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    let hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
 }
 
-async function sha256(message) {
-    const msgBuffer = new TextEncoder('utf-8').encode(message);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
-    return hashHex;
+function hexToBytes(hexString) {
+  return new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+}
+
+function to_b58(B) {
+    const A = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+    var d = [], s = "", i, j, c, n;
+    for (i in B) {
+        j = 0;
+        c = B[i];
+        s += c || s.length ^ i ? "" : 1;
+        while(j in d || c) {
+            n = d[j];
+            n = n ? n * 256 + c : c;
+            c = n / 58 | 0;
+            d[j] = n % 58;
+            j++;
+        }
+    }
+    while(j--)
+        s += A[d[j]];
+    return s;
 }
 
 if (!window.crypto.subtle) {

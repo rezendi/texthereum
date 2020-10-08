@@ -1,0 +1,5 @@
+#Site redirects
+
+/ /send.html
+/send /send.html
+/receive /receive.html

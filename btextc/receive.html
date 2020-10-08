@@ -1,7 +1,7 @@
 <html>
     <head>
         <script type="text/javascript" src="elliptic.min.js" language="javascript"></script> <!-- from https://github.com/indutny/elliptic -->
-        <script type="text/javascript" src="sha3.js" language="javascript"></script> <!-- from https://github.com/emn178/js-sha3 -->
+        <script type="text/javascript" src="crypto-api.min.js" language="javascript"></script> <!-- from https://github.com/nf404/crypto-api -->
         <script language="javascript">
 
 if (location.protocol !== 'https:' && location.protocol !== 'file:') {
@@ -53,48 +53,63 @@ async function calculateKeyAndAddress(e) {
 
 
     const concat = "" + c + n + p;
-    const privKey = await sha256(concat);
+    const privKey = await sha256Hex(concat);
     
-    document.getElementById("keyButton").innerHTML = "<button onclick='copyKey()'>Copy</button>";
-    document.getElementById("keyContent").innerHTML = privKey;
-
     let ec = new elliptic.ec('secp256k1');
     const generatorPoint = ec.g;
     const pubKeyCoordinates = generatorPoint.mul(privKey);
     const x = pubKeyCoordinates.getX().toString('hex',64);
     const y = pubKeyCoordinates.getY().toString('hex',64);
-    const pubKey = x + y;
-    console.log("pubKey", pubKey);
-    
-    const hashOfPubKey = keccak256(hexToBytes(pubKey));
-    console.log("hashOfPubKey", hashOfPubKey);
+    const lastY = y.slice(-1);
+    const prefix = '02468ace'.indexOf(lastY) >= 0 ? '02' : '03';
+    const pubKey = prefix + x;
 
-    const ethAddress = hashOfPubKey.slice(-40);
-    document.getElementById("addressContent").innerHTML = ethAddress;
+    let address = await sha256Hex(pubKey);
+
+    let msgBuffer = new Uint8Array(address.match(/[\da-f]{2}/gi).map(function (h) { return parseInt(h, 16); }));
+    let mder = CryptoApi.getHasher('ripemd160');
+    mder.update(CryptoApi.encoder.fromArrayBuffer(msgBuffer));
+    address = '00' + CryptoApi.encoder.toHex(mder.finalize());
+    
+    const firstHash = await sha256Hex(address);
+    const secondHash = await sha256Hex(firstHash);
+    const checksum = secondHash.slice(0,8);
+
+    const btcAddress = Uint8Array.from([...hexToBytes(address), ...hexToBytes(checksum)]);
+    const b58Address = to_b58(btcAddress);
+    document.getElementById("addressContent").innerHTML = b58Address;
     return false;
 }
 
-function hexToBytes(hex) {
-  if (!hex.match(/^[0-9a-fA-F]+$/)) {
-    throw new Error('is not a hex string.');
-  }
-  if (hex.length % 2 !== 0) {
-    hex = '0' + hex;
-  }
-  var bytes = [];
-  for (var n = 0; n < hex.length; n += 2) {
-    var code = parseInt(hex.substr(n, 2), 16);
-    bytes.push(code);
-  }
-  return bytes;
+async function sha256Hex(hexString) {
+    let msgBuffer = new Uint8Array(hexString.match(/[\da-f]{2}/gi).map(function (h) { return parseInt(h, 16); }));
+    let hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    let hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
 }
 
-async function sha256(message) {
-    const msgBuffer = new TextEncoder('utf-8').encode(message);                    
-    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
-    return hashHex;
+function hexToBytes(hexString) {
+  return new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+}
+
+function to_b58(B) {
+    const A = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+    var d = [], s = "", i, j, c, n;
+    for (i in B) {
+        j = 0;
+        c = B[i];
+        s += c || s.length ^ i ? "" : 1;
+        while(j in d || c) {
+            n = d[j];
+            n = n ? n * 256 + c : c;
+            c = n / 58 | 0;
+            d[j] = n % 58;
+            j++;
+        }
+    }
+    while(j--)
+        s += A[d[j]];
+    return s;
 }
 
 if (!window.crypto.subtle) {
@@ -109,13 +124,13 @@ if (!window.crypto.subtle) {
         <h1>Texthereum</h1>
         <h2>Receive</h2>
         <h3>Instructions</h3>
-        If you're here, someone probably sent you some cryptocurrency, along with a password. That currency has been put in what
+        If you're here, someone probably sent you some Bitcoin, along with a password. That bitcoin has been put in what
         is sometimes called an "address," but you can think of as a treasure chest. Use the form below to enter your phone number
         and the password you received, in order to get the key to that treasure chest, known as the "private key."
         <p/>
         Please note that the "private key" is just a string of numbers and letters, and <i>anyone who has it</i> can use it to
         unlock this treasure chest and take its contents -- so keep it secret. In the unlikely event it turns out to be empty,
-        well, maybe someone stole it ... or maybe whoever texted you that they were going to put the money in the chest never
+        well, maybe someone stole it ... or maybe whoever texted you that they were going to put the bitcoin in the chest never
         actually got around to it. Probably best to check with them, if so.
         <p/>
         Once you have the private key, you'll probably want to move it into a more secure "wallet." See the <i>What To Do With
@@ -132,7 +147,7 @@ if (!window.crypto.subtle) {
         <h3>Address</h3>
         <div id="addressContent"></div>
         <br/>
-        <div>(You can use sites like <a href="https://etherscan.io/">Etherscan.io</a> to see the history of all transactions for any Ethereum address.)</div>
+        <div>(You can use sites like <a href="https://www.blockchain.com/explorer">blockchain.com</a> to see the history of all transactions for any Bitcoin address.)</div>
         <h3>What To Do With Your Money</h3>
         <UL>
             <LI>Wallets</LI>
