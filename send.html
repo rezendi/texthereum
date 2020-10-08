@@ -52,27 +52,48 @@ function toggleSecurity() {
 
 async function calculateKeyAndAddress(e) {
     e.preventDefault();
-    const x = document.getElementById("countryField").value;
-    const y = document.getElementById("numberField").value;
-    const z = document.getElementById("passwordField").value;
-    const concat = "" + x + y + z;
-    console.log("concat", concat);
+    const c = document.getElementById("countryField").value;
+    const n = document.getElementById("numberField").value;
+    const p = document.getElementById("passwordField").value;
+    const concat = "" + c + n + p;
     const privKey = await sha256(concat);
     console.log("privKey", privKey);
     
     let ec = new elliptic.ec('secp256k1');
-    const pubKey = ec.keyFromPrivate(privKey, 'hex').getPublic('hex').slice(2);
+    const generatorPoint = ec.g;
+    const pubKeyCoordinates = generatorPoint.mul(privKey);
+    const x = pubKeyCoordinates.getX().toString('hex');
+    const y = pubKeyCoordinates.getY().toString('hex');
+    const pubKey = x + y;
     console.log("pubKey", pubKey);
     
-    const address = keccak256(pubKey).slice(64 - 40);
+    const hashOfPubKey = keccak256(hexToString(pubKey));
+    console.log("hashOfPubKey", hashOfPubKey);
+
+    const ethAddress = hashOfPubKey.slice(-40);
     
     document.getElementById("numberButton").innerHTML = "<button onclick='copyNumber()'>Copy</button>";
-    document.getElementById("numberContent").innerHTML = `+${x}${y}`;
+    document.getElementById("numberContent").innerHTML = `+${c}${n}`;
     document.getElementById("textButton").innerHTML = "<button onclick='copyText()'>Copy</button>";
     document.getElementById("textContent").innerHTML = getText();
     document.getElementById("addressButton").innerHTML = "<button onclick='copyAddress()'>Copy</button>";
-    document.getElementById("addressContent").innerHTML = address;
+    document.getElementById("addressContent").innerHTML = ethAddress;
     return false;
+}
+
+function hexToString(hex) {
+  if (!hex.match(/^[0-9a-fA-F]+$/)) {
+    throw new Error('is not a hex string.');
+  }
+  if (hex.length % 2 !== 0) {
+    hex = '0' + hex;
+  }
+  var bytes = [];
+  for (var n = 0; n < hex.length; n += 2) {
+    var code = parseInt(hex.substr(n, 2), 16)
+    bytes.push(code);
+  }
+  return bytes;
 }
 
 async function sha256(message) {
