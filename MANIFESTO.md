@@ -1,8 +1,8 @@
 The Texthereum Manifesto
 ========================
 
-It should be easy to send cryptocurrencies via text message.
-The recipient shouldn't even need to have a wallet, or an address.
+It should be easy to send small-to-medium amounts of cryptocurrencies via text message.
+The recipient shouldn't need a wallet, or an app, or an account.
 
 But what do all of the existing "send crypto via text" solutions demand?
 "Download our app / Create an account / Sign up at our site / Use our token."
@@ -12,12 +12,12 @@ You don't need an account, or an app, or a site, or a token. All you need is a
 protocol: a repeatable way to turn the recipient's phone number, and a password
 for security, into the private key which can access the transferred money.
 
-"What? Working with raw private keys? Ones built from nonrandom data, therefore
-lower entropy? Using notoriously hackable and SIM-swappable SMS? That is
-horrifically unsafe and insecure and completely unacceptable!" No, stop it,
-wrong. I mean, yes, I certainly wouldn't send a million dollars this way, and
-I'd certainly favor Signal and WhatsApp over SMS. But the threat model for a
-million-dollar transaction is _very very *very* different_ from the threat
+"What? Working with raw private keys? Ones built from not-entirely-random data,
+therefore lower entropy? Using notoriously hackable and SIM-swappable SMS? That
+is horrifically unsafe and insecure and completely unacceptable!" No, stop it,
+wrong. I mean, I certainly wouldn't send a million dollars this way. And I'd
+certainly favor Signal and WhatsApp over SMS. But the threat model for a
+million-dollar transaction is _very very **very** different_ from the threat
 model for fifty bucks. For the latter, a protocol protected by decent
 passwords is good enough.
 

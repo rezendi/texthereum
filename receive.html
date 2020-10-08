@@ -33,13 +33,25 @@ function copyKey() {
 
 async function calculateKeyAndAddress(e) {
     e.preventDefault();
-    const x = document.getElementById("countryField").value;
-    const y = document.getElementById("numberField").value;
-    const z = document.getElementById("passwordField").value;
-    const concat = "" + x + y + z;
-    console.log("concat", concat);
+
+    const c = document.getElementById("countryField").value;
+    const n = document.getElementById("numberField").value;
+
+    if ((c+n).length < 6) {
+      alert("Minimum allowed phone number length is 6 characters.");
+      return;
+    }
+
+    const p = document.getElementById("passwordField").value;
+
+    if (p.length < 4) {
+      alert("Minimum possible password length is 4 characters.");
+      return;
+    }
+
+
+    const concat = "" + c + n + p;
     const privKey = await sha256(concat);
-    console.log("privKey", privKey);
     
     document.getElementById("keyButton").innerHTML = "<button onclick='copyKey()'>Copy</button>";
     document.getElementById("keyContent").innerHTML = privKey;
@@ -65,6 +77,18 @@ if (!window.crypto.subtle) {
     <body>
         <h1>Texthereum</h1>
         <h2>Receive</h2>
+        <h3>Instructions</h3>
+        If you're here, someone probably sent you some cryptocurrency, along with a password. That currency has been put in what
+        is sometimes called an "address," but you can think of as a treasure chest. Use the form below to enter your phone number
+        and the password you received, in order to get the key to that treasure chest, known as the "private key."
+        <p/>
+        Please note that the "private key" is just a string of numbers and letters, and <i>anyone who has it</i> can use it to
+        unlock this treasure chest and take its contents -- so keep it secret. In the unlikely event it turns out to be empty,
+        well, maybe someone stole it ... or maybe whoever texted you that they were going to put the money in the chest never
+        actually got around to it. Probably best to check with them, if so.
+        <p/>
+        Once you have the private key, you'll probably want to move it into a more secure "wallet." See the <i>What To Do With
+        Your Money</i> section below for details.
         <form method="post" onsubmit="return calculateKeyAndAddress(event);">
         <input id="countryField" type="text" name="countryCode" onchange="stripNumbers();" placeholder="Country code"></input>
         <input id="numberField" type="text" name="number" onchange="stripNumbers();" placeholder="Phone number"></input>
@@ -74,5 +98,10 @@ if (!window.crypto.subtle) {
         </form>
         <h3>Private Key</h3>
         <div id="keyWrapper"><span id="keyButton"></span> <span id="keyContent"></span></div>
+        <h3>What To Do With Your Money</h3>
+        <UL>
+            <LI>Wallets</LI>
+            <LI>Exchanges</LI>
+        </UL>
     </body>
 </html>

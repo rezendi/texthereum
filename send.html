@@ -63,6 +63,11 @@ async function calculateKeyAndAddress(e) {
     const c = document.getElementById("countryField").value;
     const n = document.getElementById("numberField").value;
     
+    if ((c+n).length < 6) {
+      alert("Minimum allowed phone number length is 6 characters");
+      return;
+    }
+
     if ((c+n).length > 16) {
       alert("Maximum allowed phone number length is 16 characters");
       return;
