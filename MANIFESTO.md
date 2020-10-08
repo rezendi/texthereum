@@ -31,7 +31,7 @@ So what is this protocol? It’s quite simple:
 7. Recipient goes through steps 1-3 again to get the address's private key.
 
 You may be thinking: "This sounds super low level and complex!" Sure. That's
-why we provide [texthereum.com](https://texthereum.com), to handle steps 1 through 4 for you. That site
+why we built a web service to handle steps 1 through 4 for you. That site
 runs everything locally in your browser, of course, all data is ephemeral and
 transient, nothing is ever stored, etc. (And again, before your head explodes,
 the threat model for "occasionally sending $50 to your buddy" is very very
@@ -39,14 +39,14 @@ different from the threat model for "a crypto whale's life savings.") This
 reduces the procedure to:
 1. Go to [texthereum.com](https://texthereum.com), enter the recipient's phone number, pick a password.
 2. Text that password and an explanatory URL to the recipient’s phone.
-([texthereum.com](https://texthereum.com) generates boilerplate text to copy/paste.)
-3. Send ether, or ERC-20 tokens, to the address the site generates.
-4. Recipient goes to texthereum.com and uses that password to get the private
-key; basically, an "electronic paper wallet," to be imported (or swept)
-into a more formal / secure wallet, and then perhaps exchanged for fiat.
+(The site also generates boilerplate text to copy/paste.)
+3. Send ether, or ERC-20 tokens, to the generated address.
+4. Recipient goes to [texthereum.com](https://texthereum.com) and uses that password to get the private
+key -- basically, an "electronic paper wallet," to be imported (or swept)
+into a more formal / secure wallet, then perhaps exchanged for fiat.
 
-Note that you don’t have to use the web site at all for any of this; it’s just
-a convenience and reference implementation. You can do it all yourself on an
+Note that you don’t have to use the web site at _all_ for any of this. It’s just
+a convenience and a reference implementation. You can do it all yourself on an
 air-gapped computer in an underground bunker if you really want.
 
 So what might this be good for? Well, my own not-so-secret long-term hope is
@@ -59,11 +59,11 @@ inflation.
 In the interim, here are a few possibilities:
 
 1. Suppose you want to airdrop cryptocurency to everyone in a given region,
-or everyone with a given phone number prefix, again a la GiveDirectly.
-Instead of ensuring all recipients have wallets, tracking every address, etc.,
-you can just transfer it all by phone and then have your agent help people
-handle it via public education sessions, easily resend any messages that were
-accidentally deleted, etcetera.
+or with a given phone number prefix, again a la GiveDirectly. Instead of
+ensuring all recipients have wallets, tracking every address, etc., you can
+just transfer it all by phone and then have your agent help people handle it
+via public education sessions, easily resend any messages that were
+accidentally deleted, etc.
 
 2. Suppose you land in London, go for a fancy meal with acquaintances, then
 realize you don’t have any pounds on you. So you ask "Can I pay you with
@@ -84,11 +84,10 @@ non-phone use cases too...
 
 Of course, you still have to perform the actual blockchain transfers yourself.
 Texthereum can’t help with that user experience, or the recpient’s experience
-using the cryptocurrency they receive. But there are no _additional_, and
-unwanted, user experiences: no account to sign up for, no app to download, no
-"utility" token to deal with, nothing else to think about or keep track of.
-It’s simple -- and it’s already baked in, right at the protocol level,
-waiting to be used.
+once they receive their cryptocurrency. But there are no _additional_ user
+experiences: no account to sign up for, no app to download, no "utility" token
+to deal with, nothing else to think about or keep track of. It’s simple ... and
+it’s already baked in, right at the protocol level, waiting to be used.
 
 You may be wondering: can you do this with Bitcoin too? And the answer is:
 you sure can. Watch this space (or a neighboring one) for the very
