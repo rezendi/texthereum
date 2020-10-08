@@ -4,6 +4,10 @@
         <script type="text/javascript" src="sha3.js" language="javascript"></script>
         <script language="javascript">
 
+if (location.protocol !== 'https:' && location.protocol !== 'file:') {
+    location.replace(`https:${location.href.substring(location.protocol.length)}`);
+}
+
 function showPasswordField() {
     var f = document.getElementById("passwordField");
     if (f.type === "password") {
