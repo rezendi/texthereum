@@ -55,6 +55,9 @@ async function calculateKeyAndAddress(e) {
     const concat = "" + c + n + p;
     const privKey = await sha256Hex(concat);
     
+    document.getElementById("keyButton").innerHTML = "<button onclick='copyKey()'>Copy</button>";
+    document.getElementById("keyContent").innerHTML = privKey;
+    
     let ec = new elliptic.ec('secp256k1');
     const generatorPoint = ec.g;
     const pubKeyCoordinates = generatorPoint.mul(privKey);
