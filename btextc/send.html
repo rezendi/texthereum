@@ -28,7 +28,7 @@ function getText() {
     const pwd = document.getElementById("passwordField").value;
     let amountContent = document.getElementById("amountField").value.trim()
     amountContent = amountContent.length > 0 ? amountContent : "some Bitcoin";
-    return `I'm sending you ${amountContent}! Go to https://btextc.com/receive to retrieve it with the password: ${pwd}`;
+    return `I'm sending you ${amountContent} bitcoin! Go to https://btextc.com/receive to retrieve it with the password: ${pwd}`;
 }
 
 function copyText() { copyToClipboard("textContent"); }
@@ -172,8 +172,8 @@ if (!window.crypto.subtle) {
         </script>
     </head>
     <body>
-        <h1>Texthereum</h1>
-        <h2>Send</h2>
+        <h1>BTextC</h1>
+        <h2>Send Bitcoin</h2>
         <form method="post" onsubmit="calculateKeyAndAddress(event);">
             <input id="amountField" type="text" size=30 name="amount" placeholder="Amount you'll send (optional)"></input>
             <br/>
