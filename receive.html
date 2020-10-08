@@ -123,11 +123,11 @@ if (!window.crypto.subtle) {
         Once you have the private key, you'll probably want to move it into a more secure "wallet." See the <i>What To Do With
         Your Money</i> section below for details.
         <form method="post" onsubmit="return calculateKeyAndAddress(event);">
-        <input id="countryField" type="text" name="countryCode" onchange="stripNumbers();" placeholder="Country code"></input>
-        <input id="numberField" type="text" name="number" onchange="stripNumbers();" placeholder="Phone number"></input>
-        <input id="passwordField" type="password" name="password" placeholder="Password"></input>
-        <a href="#" style="text-decoration:none" onclick="showPasswordField();">👁️</a>
-        <input type="submit">
+            <input id="countryField" type="text" name="countryCode" onchange="stripNumbers();" placeholder="Country code"></input>
+            <input id="numberField" type="text" name="number" onchange="stripNumbers();" placeholder="Phone number"></input>
+            <input id="passwordField" type="password" name="password" placeholder="Password"></input>
+            <a href="#" style="text-decoration:none" onclick="showPasswordField();">👁️</a>
+            <input type="submit">
         </form>
         <h3>Private Key</h3>
         <div id="keyWrapper"><span id="keyButton"></span> <span id="keyContent"></span></div>
