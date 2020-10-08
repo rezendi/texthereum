@@ -31,15 +31,15 @@ So what is this protocol? It’s quite simple:
 7. Recipient goes through steps 1-3 again to get the address's private key.
 
 You may be thinking: "This sounds super low level and complex!" Sure. That's
-why we provide texthereum.com, to handle steps 1 through 4 for you. That site
+why we provide [texthereum.com](https://texthereum.com), to handle steps 1 through 4 for you. That site
 runs everything locally in your browser, of course, all data is ephemeral and
 transient, nothing is ever stored, etc. (And again, before your head explodes,
 the threat model for "occasionally sending $50 to your buddy" is very very
 different from the threat model for "a crypto whale's life savings.") This
 reduces the procedure to:
-1. Go to texthereum.com, enter the recipient's phone number, pick a password.
+1. Go to [texthereum.com](https://texthereum.com), enter the recipient's phone number, pick a password.
 2. Text that password and an explanatory URL to the recipient’s phone.
-(Texthereum.com generates boilerplate text to copy/paste.)
+([texthereum.com](https://texthereum.com) generates boilerplate text to copy/paste.)
 3. Send ether, or ERC-20 tokens, to the address the site generates.
 4. Recipient goes to texthereum.com and uses that password to get the private
 key; basically, an "electronic paper wallet," to be imported (or swept)
@@ -72,13 +72,13 @@ mnemonic phrase, figure out addresses, etc., on the spot -- unrealistically
 complex and obnoxious -- you just ask them for their phone number. Maybe send
 them a quick confirmation text to ensure you got it right. Then just come up
 with a witty password, send them a text with it, fire up your wallet, and
-transfer 0.2 ETH to the address copied from texthereum.com. The hard part is
+transfer 0.2 ETH to the address copied from [texthereum.com](https://texthereum.com). The hard part is
 now the witty password.
 
 3. Suppose you don’t even want to send money to a phone; you just want to
 reward whoever solves a puzzle first. You do this by making its solutions
 a 15-digit number and a password. Then whoever gets it first can go to
-texthereum.com/receive, enter those values, get the private key, and claim its
+[texthereum.com/receive](https://texthereum.com/receive), enter those values, get the private key, and claim its
 contents. Think about it a while and I bet you’ll come up with some other
 non-phone use cases too...
 
