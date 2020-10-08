@@ -2,7 +2,7 @@ The Texthereum Manifesto
 ========================
 
 It should be easy to send cryptocurrencies via text message.
-The recipient shouldn't need to have a wallet, or an address, already.
+The recipient shouldn't even need to have a wallet, or an address.
 
 But what do all of the existing "send crypto via text" solutions demand?
 "Download our app / Create an account / Sign up at our site / Use our token."
