@@ -27,7 +27,7 @@ function stripNumbers() {
 function getText() {
     const pwd = document.getElementById("passwordField").value;
     let amountContent = document.getElementById("amountField").value.trim()
-    amountContent = amountContent.length > 0 ? amountContent : "some Bitcoin";
+    amountContent = amountContent.length > 0 ? amountContent : "some";
     return `I'm sending you ${amountContent} bitcoin! Go to https://btextc.com/receive to retrieve it with the password: ${pwd}`;
 }
 
