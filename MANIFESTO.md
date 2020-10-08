@@ -39,11 +39,12 @@ different from the threat model for "a crypto whale's life savings.") This
 reduces the procedure to:
 1. Go to [texthereum.com](https://texthereum.com), enter the recipient's phone number, pick a password.
 2. Text that password and an explanatory URL to the recipient’s phone.
-(The site also generates boilerplate text to copy/paste.)
+(The site generates boilerplate text to copy/paste.)
 3. Send ether, or ERC-20 tokens, to the generated address.
-4. Recipient goes to [texthereum.com](https://texthereum.com) and uses that password to get the private
-key -- basically, an "electronic paper wallet," to be imported (or swept)
-into a more formal / secure wallet, then perhaps exchanged for fiat.
+4. Recipient goes to [texthereum.com](https://texthereum.com) and uses the
+password they were texted to get their private key -- basically, an
+"electronic paper wallet" -- to be imported (or swept) into a more
+formal / secure wallet, then perhaps exchanged for fiat.
 
 Note that you don’t have to use the web site at _all_ for any of this. It’s just
 a convenience and a reference implementation. You can do it all yourself on an
