@@ -41,7 +41,7 @@ reduces the procedure to:
 2. Text that password and an explanatory URL to the recipient’s phone.
 (The site generates boilerplate text to copy/paste.)
 3. Send ether, or ERC-20 tokens, to the generated address.
-4. Recipient goes to [texthereum.com](https://texthereum.com) and uses the
+4. Recipient goes to [texthereum.com](https://texthereum.com/receive) and uses the
 password they were texted to get their private key -- basically, an
 "electronic paper wallet" -- to be imported (or swept) into a more
 formal / secure wallet, then perhaps exchanged for fiat.
@@ -59,7 +59,7 @@ inflation.
 
 In the interim, here are a few possibilities:
 
-1. Suppose you want to airdrop cryptocurency to everyone in a given region,
+1. Suppose you want **to airdrop cryptocurency** to everyone in a given region,
 or with a given phone number prefix, again a la GiveDirectly. Instead of
 ensuring all recipients have wallets, tracking every address, etc., you can
 just transfer it all by phone and then have your agent help people handle it
@@ -67,8 +67,8 @@ via public education sessions, easily resend any messages that were
 accidentally deleted, etc.
 
 2. Suppose you land in London, go for a fancy meal with acquaintances, then
-realize you don’t have any pounds on you. So you ask "Can I pay you with
-crypto?" Instead of requiring the recipient to download a wallet, deal with a
+realize you don’t have any pounds on you. So you ask "**Can I pay you with
+crypto?**" Instead of requiring the recipient to download a wallet, deal with a
 mnemonic phrase, figure out addresses, etc., on the spot -- unrealistically
 complex and obnoxious -- you just ask them for their phone number. Maybe send
 them a quick confirmation text to ensure you got it right. Then just come up
@@ -76,8 +76,8 @@ with a witty password, send them a text with it, fire up your wallet, and
 transfer 0.2 ETH to the address copied from [texthereum.com](https://texthereum.com). The hard part is
 now the witty password.
 
-3. Suppose you don’t even want to send money to a phone; you just want to
-reward whoever solves a puzzle first. You do this by making its solutions
+3. Suppose you don’t even want to send money to a phone; you just want **to
+reward whoever solves a puzzle first**. You do this by making its solutions
 a 15-digit number and a password. Then whoever gets it first can go to
 [texthereum.com/receive](https://texthereum.com/receive), enter those values, get the private key, and claim its
 contents. Think about it a while and I bet you’ll come up with some other
