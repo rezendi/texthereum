@@ -22,6 +22,15 @@ function stripNumbers() {
     y.value = y.value.replace(/\D/g,'');
 }
 
+function copyKey() {    
+    var range = document.createRange();
+    range.selectNode(document.getElementById("keyContent"));
+    window.getSelection().removeAllRanges(); // clear current selection
+    window.getSelection().addRange(range); // to select text
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();// to deselect
+}
+
 async function calculateKeyAndAddress(e) {
     e.preventDefault();
     const x = document.getElementById("countryField").value;
@@ -47,16 +56,8 @@ async function sha256(message) {
 
 if (!window.crypto.subtle) {
     alert("Old browser! No WebCrypto API! Do not use!");
+    ocument.getElementById("submitButton").remove();
     //TODO redirect to something which imports Stanford Crypto Library or the like
-}
-
-function copyKey() {    
-    var range = document.createRange();
-    range.selectNode(document.getElementById("keyContent"));
-    window.getSelection().removeAllRanges(); // clear current selection
-    window.getSelection().addRange(range); // to select text
-    document.execCommand("copy");
-    window.getSelection().removeAllRanges();// to deselect
 }
 
         </script>

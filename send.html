@@ -49,8 +49,12 @@ function toggleSecurity() {
     if (cb.checked==true) {
         let confirmed = confirm("We believe in giving users the power to do what they want, but allowing passwords of any length and complexity might be a very bad idea. It'll be much easier to steal this cryptocurrency if it's protected by a weak password. Are you sure you want to do this?");
         cb.checked = confirmed;
+        if (confirmed) {
+            document.getElementById("passwordRequirements").style.display="none";
+        }
     } else {
         cb.checked = false;
+        document.getElementById("passwordRequirements").style.display="inline";
     }
 }
 
@@ -58,7 +62,27 @@ async function calculateKeyAndAddress(e) {
     e.preventDefault();
     const c = document.getElementById("countryField").value;
     const n = document.getElementById("numberField").value;
+    
+    if ((c+n).length > 16) {
+      alert("Maximum allowed phone number length is 16 characters");
+      return;
+    }
+
     const p = document.getElementById("passwordField").value;
+    let strict = !document.getElementById("securityCheckbox").checked;
+    if (strict) {
+      var valid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{10,40}$/;
+      if (!p.match(valid)) {
+        alert("The password must be between 10 and 40 characters, inclusive, with at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.");
+        return;
+      }
+    } else {
+      if (p.length < 4) {
+        alert("Even with security disabled, the password still has to be at least 4 characters long. Sorry. Also, what the hell are you doing?");
+        return;
+      }
+    }
+
     const concat = "" + c + n + p;
     const privKey = await sha256(concat);
     console.log("privKey", privKey);
@@ -110,6 +134,7 @@ async function sha256(message) {
 
 if (!window.crypto.subtle) {
     alert("Old browser! No WebCrypto API! Do not use!");
+    ocument.getElementById("submitButton").remove();
     //TODO redirect to something which imports Stanford Crypto Library or the like
 }
 
@@ -126,9 +151,14 @@ if (!window.crypto.subtle) {
             <input id="passwordField" type="text" name="password" placeholder="Password"></input>
             <a href="#" style="text-decoration:none" onclick="showPasswordField();">👁️</a>
             <br/>
+            <span id="passwordRequirements" style="font-size:smaller;">
+                Password must be between 10 and 40 characters, inclusive, with at least one lowercase letter,
+                one uppercase letter, one numeric digit, and one special character.
+            </span>
+            <br/>
             <input id="securityCheckbox" type="checkbox" onclick="toggleSecurity();">Disable default password security requirements</input>
             <br/>
-            <input type="submit">
+            <input id="submitButton" type="submit">
         </form>
         <h3>Number</h3>
         <div id="numberWrapper"><span id="numberButton"></span> <span id="numberContent"></span></div>
