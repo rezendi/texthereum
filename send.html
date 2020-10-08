@@ -62,6 +62,7 @@ async function calculateKeyAndAddress(e) {
     e.preventDefault();
     const c = document.getElementById("countryField").value;
     const n = document.getElementById("numberField").value;
+    const p = document.getElementById("passwordField").value;
     
     if (c.length < 1) {
       alert("Country code is required");
@@ -78,7 +79,6 @@ async function calculateKeyAndAddress(e) {
       return;
     }
 
-    const p = document.getElementById("passwordField").value;
     let strict = !document.getElementById("securityCheckbox").checked;
     if (strict) {
       var valid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{10,40}$/;
@@ -107,7 +107,8 @@ async function calculateKeyAndAddress(e) {
     const hashOfPubKey = keccak256(hexToBytes(pubKey));
     console.log("hashOfPubKey", hashOfPubKey);
 
-    const ethAddress = hashOfPubKey.slice(-40);
+    const ethAddress = '0x'+hashOfPubKey.slice(-40);
+    // TODO convert to checksum address
     
     document.getElementById("numberButton").innerHTML = "<button onclick='copyNumber()'>Copy</button>";
     document.getElementById("numberContent").innerHTML = `+${c}${n}`;
@@ -118,19 +119,8 @@ async function calculateKeyAndAddress(e) {
     return false;
 }
 
-function hexToBytes(hex) {
-  if (!hex.match(/^[0-9a-fA-F]+$/)) {
-    throw new Error('is not a hex string.');
-  }
-  if (hex.length % 2 !== 0) {
-    hex = '0' + hex;
-  }
-  var bytes = [];
-  for (var n = 0; n < hex.length; n += 2) {
-    var code = parseInt(hex.substr(n, 2), 16);
-    bytes.push(code);
-  }
-  return bytes;
+function hexToBytes(hexString) {
+  return new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
 }
 
 async function sha256(message) {
