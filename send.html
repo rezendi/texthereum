@@ -95,7 +95,6 @@ async function calculateKeyAndAddress(e) {
 
     const concat = "" + c + n + p;
     const privKey = await sha256(concat);
-    console.log("privKey", privKey);
     
     let ec = new elliptic.ec('secp256k1');
     const generatorPoint = ec.g;
@@ -144,7 +143,7 @@ async function sha256(message) {
 
 if (!window.crypto.subtle) {
     alert("Old browser! No WebCrypto API! Do not use!");
-    ocument.getElementById("submitButton").remove();
+    document.getElementById("submitButton").remove();
     //TODO redirect to something which imports Stanford Crypto Library or the like
 }
 
