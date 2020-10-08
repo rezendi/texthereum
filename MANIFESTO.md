@@ -92,5 +92,5 @@ it’s already baked in, right at the protocol level, waiting to be used.
 
 You may be wondering: can you do this with Bitcoin too? And the answer is:
 you sure can. See the very similar
-[BTextC Manifesto](https://github.com/rezendi/texthereum/btextc/MANIFESTO.md)...
+[BTextC Manifesto](https://github.com/rezendi/texthereum/blob/main/btextc/MANIFESTO.md)...
 

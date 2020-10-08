@@ -1,4 +1,4 @@
-The Texthereum Manifesto
+The BTextC Manifesto
 ========================
 
 It should be easy to send small(ish) amounts of bitcoin via text message.
@@ -90,4 +90,4 @@ at the protocol level, waiting to be used.
 
 You may be wondering: can you do this with Ethereum too? And the answer is:
 you sure can. See the very similar
-[Texthereum Manifesto](https://github.com/rezendi/texthereum/MANIFESTO.md)...
+[Texthereum Manifesto](https://github.com/rezendi/texthereum/blob/main/MANIFESTO.md)...
