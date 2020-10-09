@@ -10,11 +10,7 @@ if (location.protocol !== 'https:' && location.protocol !== 'file:') {
 
 function showPasswordField() {
     var f = document.getElementById("passwordField");
-    if (f.type === "password") {
-        f.type = "text";
-    } else {
-        f.type = "password";
-    }
+    f.type = ( f.type === "password" ? "text" : "password" );
 }
 
 function stripNumbers() {
@@ -105,17 +101,20 @@ async function calculateKeyAndAddress(e) {
     const x = pubKeyCoordinates.getX().toString('hex',64);
     const y = pubKeyCoordinates.getY().toString('hex',64);
     const lastY = y.slice(-1);
-    const prefix = '02468ace'.indexOf(lastY) >= 0 ? '02' : '03';
-    const pubKey = prefix + x;
+    const keyPrefix = '02468ace'.indexOf(lastY) >= 0 ? '02' : '03';
+    const pubKey = keyPrefix + x;
     console.log("compressed pubKey", pubKey);
 
-    let address = await sha256Hex(pubKey);
-    console.log("sha256", address);
+    const shadKey = await sha256Hex(pubKey);
 
-    let msgBuffer = new Uint8Array(address.match(/[\da-f]{2}/gi).map(function (h) { return parseInt(h, 16); }));
+    let msgBuffer = new Uint8Array(shadKey.match(/[\da-f]{2}/gi).map(function (h) { return parseInt(h, 16); }));
     let mder = CryptoApi.getHasher('ripemd160');
     mder.update(CryptoApi.encoder.fromArrayBuffer(msgBuffer));
-    address = '00' + CryptoApi.encoder.toHex(mder.finalize());
+    const addSuffix = CryptoApi.encoder.toHex(mder.finalize());
+
+    const mainnet = true;
+    const addPrefix = mainnet ? '00' : '6F';
+    const address = addPrefix + addSuffix;
     console.log("networked ripemd160 hash", address);
     
     const firstHash = await sha256Hex(address);
@@ -177,7 +176,7 @@ if (!window.crypto.subtle) {
     <body>
         <h1>BTextC</h1>
         <h2>Send Bitcoin by Text</h2>
-        (Alpha. Use is advised only on testnets at the moment. <a href="receive.html">Click here to receive</a>)
+        (Alpha. Tested only on testnets to date. <a href="receive.html">Click here to receive</a>)
         <p/>
         <form method="post" onsubmit="calculateKeyAndAddress(event);">
             <input id="amountField" type="text" size=30 name="amount" placeholder="Amount you'll send (optional)"></input>

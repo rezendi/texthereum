@@ -10,11 +10,7 @@ if (location.protocol !== 'https:' && location.protocol !== 'file:') {
 
 function showPasswordField() {
     var f = document.getElementById("passwordField");
-    if (f.type === "password") {
-        f.type = "text";
-    } else {
-        f.type = "password";
-    }
+    f.type = ( f.type === "password" ? "text" : "password" );
 }
 
 function stripNumbers() {
@@ -145,7 +141,7 @@ if (!window.crypto.subtle) {
     <body>
         <h1>Texthereum</h1>
         <h2>Send Cryptocurrency by Text</h2>
-        (Alpha. Use is advised only on testnets at the moment. <a href="receive.html">Click here to receive</a>)
+        (Alpha. Tested only on testnets to date. <a href="receive.html">Click here to receive</a>)
         <p/>
         <form method="post" onsubmit="calculateKeyAndAddress(event);">
             <input id="amountField" type="text" size=30 name="amount" placeholder="Amount you'll send (optional)"></input>

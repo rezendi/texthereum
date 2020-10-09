@@ -10,11 +10,7 @@ if (location.protocol !== 'https:' && location.protocol !== 'file:') {
 
 function showPasswordField() {
     var f = document.getElementById("passwordField");
-    if (f.type === "password") {
-        f.type = "text";
-    } else {
-        f.type = "password";
-    }
+    f.type = ( f.type === "password" ? "text" : "password" );
 }
 
 function stripNumbers() {
@@ -51,7 +47,6 @@ async function calculateKeyAndAddress(e) {
       return;
     }
 
-
     const concat = "" + c + n + p;
     const privKey = await sha256Hex(concat);
     
@@ -67,12 +62,17 @@ async function calculateKeyAndAddress(e) {
     const prefix = '02468ace'.indexOf(lastY) >= 0 ? '02' : '03';
     const pubKey = prefix + x;
 
-    let address = await sha256Hex(pubKey);
+    let shadKey = await sha256Hex(pubKey);
 
-    let msgBuffer = new Uint8Array(address.match(/[\da-f]{2}/gi).map(function (h) { return parseInt(h, 16); }));
+    let msgBuffer = new Uint8Array(shadKey.match(/[\da-f]{2}/gi).map(function (h) { return parseInt(h, 16); }));
     let mder = CryptoApi.getHasher('ripemd160');
     mder.update(CryptoApi.encoder.fromArrayBuffer(msgBuffer));
-    address = '00' + CryptoApi.encoder.toHex(mder.finalize());
+    const addSuffix = CryptoApi.encoder.toHex(mder.finalize());
+
+    const mainnet = true;
+    const addPrefix = mainnet ? '00' : '6F';
+    const address = addPrefix + addSuffix;
+    console.log("networked ripemd160 hash", address);
     
     const firstHash = await sha256Hex(address);
     const secondHash = await sha256Hex(firstHash);
