@@ -50,6 +50,11 @@ Note that you don’t have to use the web site at _all_ for any of this. It’s
 just a convenience and a reference implementation. You can do it all yourself
 on an air-gapped computer in an underground bunker if you really want.
 
+Right now, "people you can send cryptocurrency to" is thought of as the set
+of people with wallets and exchange accounts, i.e. measured in the millions.
+But with protocols like this, the _actual_ addressable population is "anyone
+with a phone," in the _billions_.
+
 So what might this be good for? Well, my own not-so-secret long-term hope is
 to eventually replace much of the world’s international development aid with
 direct cash transfers to individuals, a la [GiveDirectly](https://www.givedirectly.org/). Cryptocurrency
