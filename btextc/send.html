@@ -93,8 +93,11 @@ async function calculateKeyAndAddress(e) {
       }
     }
 
-    const concat = "" + c + n + p;
-    const privKey = await sha256Hex(concat);
+    let concat = "" + c + n + p;
+    let candidateKey = await sha256Hex(concat);
+    // a tiny fragment of 256-bit keys aren't valid for secp256k1, retry if we happened to hit on one
+    // but only once, because realistically I think we're talking heat-death-of-the-universe for this to happen twice in a row
+    const privKey = candidateKey.slice(0,31) !== "fffffffffffffffffffffffffffffff" ? candidateKey : await sha256Hex("0"+concat);
     
     let ec = new elliptic.ec('secp256k1');
     const generatorPoint = ec.g;
