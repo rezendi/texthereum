@@ -40,7 +40,7 @@ reduces the procedure to:
 1. Go to [BTextC.com](https://btextc.com/), enter the recipient's phone number, pick a password.
 2. Text that password and an explanatory URL to the recipient’s phone.
 (The site generates boilerplate text to copy/paste.)
-3. Send ether, or ERC-20 tokens, to the generated address.
+3. Send bitcoin to the generated address.
 4. Recipient goes to [BTextC.com](https://btextc.com/receive) and uses the
 password they were texted to get their private key -- basically, an
 "electronic paper wallet" -- to be imported (or swept) into a more
@@ -71,7 +71,7 @@ mnemonic phrase, figure out addresses, etc., on the spot -- unrealistically
 complex and obnoxious -- you just ask them for their phone number. Maybe send
 them a quick confirmation text to ensure you got it right. Then just come up
 with a witty password, send them a text with it, fire up your wallet, and
-transfer 0.2 ETH to the address copied from [BTextC.com](https://btextc.com/).
+transfer 0.01 BTC to the address copied from [BTextC.com](https://btextc.com/).
 The hard part is now the witty password.
 
 3. Suppose you don’t even want to send bitcoin to a phone; you just want **to
