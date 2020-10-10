@@ -105,21 +105,30 @@ async function calculateKeyAndAddress(e) {
     
     const hashOfPubKey = keccak256(hexToBytes(pubKey));
     console.log("hashOfPubKey", hashOfPubKey);
-
-    const ethAddress = '0x'+hashOfPubKey.slice(-40);
-    // TODO convert to checksum address
+    
+    const ethAddress = hashOfPubKey.slice(-40);
+    const checksumAddress = '0x' + toChecksum(ethAddress);
     
     document.getElementById("numberButton").innerHTML = "<button onclick='copyNumber()'>Copy</button>";
     document.getElementById("numberContent").innerHTML = `+${c}${n}`;
     document.getElementById("textButton").innerHTML = "<button onclick='copyText()'>Copy</button>";
     document.getElementById("textContent").innerHTML = getText();
     document.getElementById("addressButton").innerHTML = "<button onclick='copyAddress()'>Copy</button>";
-    document.getElementById("addressContent").innerHTML = ethAddress;
+    document.getElementById("addressContent").innerHTML = checksumAddress;
     return false;
 }
 
 function hexToBytes(hexString) {
   return new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+}
+
+function toChecksum(address) {
+  var hash = keccak256(address);
+  var ret = '';
+  for (var i = 0; i < address.length; i++) {
+    ret += parseInt(hash[i], 16) >= 8 ? address[i].toUpperCase() : address[i];
+  }
+  return ret;
 }
 
 async function sha256(message) {
