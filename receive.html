@@ -67,6 +67,7 @@ async function calculateKeyAndAddress(e) {
     const checksumAddress = '0x' + toChecksum(ethAddress);
     document.getElementById("addressContent").innerHTML = checksumAddress;
     document.getElementById("etherExplorerLink").href = "https://etherscan.io/address/" + checksumAddress;
+    document.getElementById("keyButton").scrollIntoView();
     return false;
 }
 
@@ -111,6 +112,10 @@ if (!window.crypto.subtle) {
         </script>
 
         <style>
+html {
+  scroll-behavior: smooth;
+}
+
 .flex-form li {
   display: flex;
   flex-wrap: wrap;

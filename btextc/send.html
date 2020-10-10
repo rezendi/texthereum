@@ -131,6 +131,7 @@ async function calculateKeyAndAddress(e) {
     document.getElementById("textContent").innerHTML = getText();
     document.getElementById("addressButton").innerHTML = "<button onclick='copyAddress()'>Copy</button>";
     document.getElementById("addressContent").innerHTML = b58Address;
+    document.getElementById("numberButton").scrollIntoView();
     return false;
 }
 
@@ -175,6 +176,10 @@ if (!window.crypto.subtle) {
 
 
         <style>
+html {
+  scroll-behavior: smooth;
+}
+
 .flex-form li {
   display: flex;
   flex-wrap: wrap;

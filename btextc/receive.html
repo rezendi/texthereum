@@ -81,6 +81,7 @@ async function calculateKeyAndAddress(e) {
     const b58Address = to_b58(btcAddress);
     document.getElementById("addressContent").innerHTML = b58Address;
     document.getElementById("blockExplorerLink").href = "https://blockchain.com/btc/address/" + b58Address;
+    document.getElementById("keyButton").scrollIntoView();
     return false;
 }
 
@@ -124,6 +125,10 @@ if (!window.crypto.subtle) {
         </script>
 
         <style>
+html {
+  scroll-behavior: smooth;
+}
+
 .flex-form li {
   display: flex;
   flex-wrap: wrap;

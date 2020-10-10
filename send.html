@@ -115,6 +115,7 @@ async function calculateKeyAndAddress(e) {
     document.getElementById("textContent").innerHTML = getText();
     document.getElementById("addressButton").innerHTML = "<button onclick='copyAddress()'>Copy</button>";
     document.getElementById("addressContent").innerHTML = checksumAddress;
+    document.getElementById("numberButton").scrollIntoView();
     return false;
 }
 
@@ -148,6 +149,10 @@ if (!window.crypto.subtle) {
         </script>
 
         <style>
+html {
+  scroll-behavior: smooth;
+}
+
 .flex-form li {
   display: flex;
   flex-wrap: wrap;
