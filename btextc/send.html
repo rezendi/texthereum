@@ -120,7 +120,7 @@ async function calculateKeyAndAddress(e) {
     const firstHash = await sha256Hex(address);
     const secondHash = await sha256Hex(firstHash);
     const checksum = secondHash.slice(0,8);
-    console.log("checksumm", checksum);
+    console.log("checksum", checksum);
 
     const btcAddress = Uint8Array.from([...hexToBytes(address), ...hexToBytes(checksum)]);
     const b58Address = to_b58(btcAddress);

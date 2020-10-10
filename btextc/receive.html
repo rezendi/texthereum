@@ -47,7 +47,6 @@ async function calculateKeyAndAddress(e) {
     }
 
     const concat = "" + p + c + n;
-    console.log("concat", concat);
     const privKey = await sha256Hex(concat);
     
     document.getElementById("keyButton").innerHTML = "<button onclick='copyKey()'>Copy</button>";

@@ -60,10 +60,8 @@ async function calculateKeyAndAddress(e) {
     const x = pubKeyCoordinates.getX().toString('hex',64);
     const y = pubKeyCoordinates.getY().toString('hex',64);
     const pubKey = x + y;
-    console.log("pubKey", pubKey);
     
     const hashOfPubKey = keccak256(hexToBytes(pubKey));
-    console.log("hashOfPubKey", hashOfPubKey);
 
     const ethAddress = hashOfPubKey.slice(-40);
     const checksumAddress = '0x' + toChecksum(ethAddress);
