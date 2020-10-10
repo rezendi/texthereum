@@ -48,7 +48,7 @@ async function calculateKeyAndAddress(e) {
     }
 
 
-    const concat = "" + c + n + p;
+    const concat = "" + p + c + n;
     const privKey = await sha256(concat);
     
     document.getElementById("keyButton").innerHTML = "<button onclick='copyKey()'>Copy</button>";
@@ -111,6 +111,25 @@ if (!window.crypto.subtle) {
 }
 
         </script>
+
+        <style>
+.flex-form li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.flex-form > li > label {
+  flex: 1 0 120px;
+  max-width: 220px;
+}
+ 
+.flex-form > li > label + * {
+  flex: 1 0 220px;
+  max-width: 220px;
+}
+        </style>
+
     </head>
     <body>
         <h1>Texthereum</h1>
@@ -129,12 +148,22 @@ if (!window.crypto.subtle) {
         <p/>
         Once you have the private key, you'll probably want to move it into a more secure "wallet." See the <i>What To Do With
         Your Money</i> section below for details.
-        <form method="post" onsubmit="return calculateKeyAndAddress(event);">
-            <input id="countryField" type="text" name="countryCode" onchange="stripNumbers();" placeholder="Country code"></input>
-            <input id="numberField" type="text" name="number" onchange="stripNumbers();" placeholder="Phone number"></input>
-            <input id="passwordField" type="password" name="password" placeholder="Password"></input>
-            <a href="#" style="text-decoration:none" onclick="showPasswordField();">👁️</a>
-            <input type="submit">
+        <form method="post" onsubmit="calculateKeyAndAddress(event);">
+          <ul class="flex-form">
+            <li>
+              <label for="countryField">Country code:</label>
+              <input id="countryField" type="text" name="countryCode" onchange="stripNumbers();" placeholder="1 for US/Canada"></input>
+            </li><li>
+              <label for="numberField">Phone number:</label>
+              <input id="numberField" type="text" name="number" onchange="stripNumbers();" placeholder="No leading zeros"></input>
+            </li><li>
+              <label for="numberField">Password:</label>
+              <input id="passwordField" type="password" name="password" placeholder="Password"></input>
+              <a href="#" style="text-decoration:none" onclick="showPasswordField();">👁️</a>
+            </li><li>
+              <input id="submitButton" type="submit">
+            </li>
+          </ul>
         </form>
         <h3>Private Key</h3>
         <div id="keyWrapper"><span id="keyButton"></span> <span id="keyContent"></span></div>

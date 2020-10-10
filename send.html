@@ -89,7 +89,7 @@ async function calculateKeyAndAddress(e) {
       }
     }
 
-    let concat = "" + c + n + p;
+    const concat = "" + p + c + n;
     let candidateKey = await sha256(concat);
     // a tiny fragment of 256-bit keys aren't valid for secp256k1, retry if we happened to hit on one
     // but only once, because realistically I think we're talking heat-death-of-the-universe for this to happen twice in a row
@@ -146,6 +146,25 @@ if (!window.crypto.subtle) {
 }
 
         </script>
+
+        <style>
+.flex-form li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.flex-form > li > label {
+  flex: 1 0 120px;
+  max-width: 220px;
+}
+ 
+.flex-form > li > label + * {
+  flex: 1 0 220px;
+  max-width: 220px;
+}
+        </style>
+
     </head>
     <body>
         <h1>Texthereum</h1>
@@ -153,21 +172,31 @@ if (!window.crypto.subtle) {
         (Alpha. Tested only on testnets to date. <a href="receive.html">Click here to receive</a>)
         <p/>
         <form method="post" onsubmit="calculateKeyAndAddress(event);">
-            <input id="amountField" type="text" size=30 name="amount" placeholder="Amount you'll send (optional)"></input>
-            <br/>
-            <input id="countryField" type="text" name="countryCode" onchange="stripNumbers();" placeholder="Country code"></input>
-            <input id="numberField" type="text" name="number" onchange="stripNumbers();" placeholder="Phone number"></input>
-            <input id="passwordField" type="text" name="password" placeholder="Password"></input>
-            <a href="#" style="text-decoration:none" onclick="showPasswordField();">👁️</a>
-            <br/>
-            <span id="passwordRequirements" style="font-size:smaller;">
-                Password must be between 10 and 40 characters, inclusive, with at least one lowercase letter,
-                one uppercase letter, one numeric digit, and one special character.
-            </span>
-            <br/>
-            <input id="securityCheckbox" type="checkbox" onclick="toggleSecurity();">Disable default password security requirements</input>
-            <br/>
-            <input id="submitButton" type="submit">
+          <ul class="flex-form">
+            <li>
+              <label for="amountField">Amount:</label>
+              <input id="amountField" type="text" size=30 name="amount" placeholder="(optional)"></input>
+            </li><li>
+              <label for="countryField">Country code:</label>
+              <input id="countryField" type="text" name="countryCode" onchange="stripNumbers();" placeholder="1 for US/Canada"></input>
+            </li><li>
+              <label for="numberField">Phone number:</label>
+              <input id="numberField" type="text" name="number" onchange="stripNumbers();" placeholder="No leading zeros"></input>
+            </li><li>
+              <label for="numberField">Set password:</label>
+              <input id="passwordField" type="text" name="password" placeholder="Password"></input>
+              <a href="#" style="text-decoration:none" onclick="showPasswordField();">👁️</a>
+            </li><li>
+              <span id="passwordRequirements" style="font-size:smaller;">
+                  10-40 characters, with at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.
+              </span>
+            </li><li>
+              <input id="securityCheckbox" type="checkbox" onclick="toggleSecurity();"/>
+              <label for="securityCheckbox" style="font-size:smaller;">Disable default password security</label>
+            </li><li>
+              <input id="submitButton" type="submit">
+            </li>
+          </ul>
         </form>
         <h3>Number</h3>
         <div id="numberWrapper"><span id="numberButton"></span> <span id="numberContent"></span></div>
