@@ -81,6 +81,7 @@ async function calculateKeyAndAddress(e) {
     const btcAddress = Uint8Array.from([...hexToBytes(address), ...hexToBytes(checksum)]);
     const b58Address = to_b58(btcAddress);
     document.getElementById("addressContent").innerHTML = b58Address;
+    document.getElementById("blockExplorerLink").href = "https://blockchain.com/btc/address/" + b58Address;
     return false;
 }
 
@@ -152,7 +153,7 @@ if (!window.crypto.subtle) {
         <h3>Address</h3>
         <div id="addressContent"></div>
         <br/>
-        <div>(You can use sites like <a href="https://www.blockchain.com/explorer">blockchain.com</a> to see the history of all transactions for any Bitcoin address.)</div>
+        <div>(View address transaction history and/or QR code on <a id="blockExplorerLink" href="https://www.blockchain.com/explorer">blockchain.com</a> .)</div>
         <h3>What To Do With Your Money</h3>
         <UL>
             <LI>

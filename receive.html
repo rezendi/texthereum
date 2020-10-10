@@ -66,7 +66,9 @@ async function calculateKeyAndAddress(e) {
     console.log("hashOfPubKey", hashOfPubKey);
 
     const ethAddress = hashOfPubKey.slice(-40);
-    document.getElementById("addressContent").innerHTML = ethAddress;
+    const checksumAddress = '0x' + toChecksum(ethAddress);
+    document.getElementById("addressContent").innerHTML = checksumAddress;
+    document.getElementById("etherExplorerLink").href = "https://etherscan.io/address/" + checksumAddress;
     return false;
 }
 
@@ -83,6 +85,15 @@ function hexToBytes(hex) {
     bytes.push(code);
   }
   return bytes;
+}
+
+function toChecksum(address) {
+  var hash = keccak256(address);
+  var ret = '';
+  for (var i = 0; i < address.length; i++) {
+    ret += parseInt(hash[i], 16) >= 8 ? address[i].toUpperCase() : address[i];
+  }
+  return ret;
 }
 
 async function sha256(message) {
@@ -130,7 +141,7 @@ if (!window.crypto.subtle) {
         <h3>Address</h3>
         <div id="addressContent"></div>
         <br/>
-        <div>(You can use sites like <a href="https://etherscan.io/">Etherscan.io</a> to see the history of all transactions for any Ethereum address.)</div>
+        <div>(View address transaction history on <a id="etherExplorerLink" href="https://etherscan.io/">Etherscan.io</a>.)</div>
         <h3>What To Do With Your Money</h3>
         <UL>
        <UL>
