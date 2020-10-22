@@ -23,9 +23,7 @@ function stripNumbers() {
 
 function getText() {
     const pwd = document.getElementById("passwordField").value;
-    let amountContent = document.getElementById("amountField").value.trim()
-    amountContent = amountContent.length > 0 ? amountContent : "some Ethereum cryptocurrency";
-    return `I'm sending you ${amountContent}! Go to https://texthereum.com/receive to retrieve it with the password: ${pwd}`;
+    return `I'm sending you some Ethereum cryptocurrency! Go to https://texthereum.com/receive to retrieve it with the password: ${pwd}`;
 }
 
 function copyText() { copyToClipboard("textContent"); }
@@ -180,9 +178,6 @@ html {
         <form method="post" onsubmit="calculateKeyAndAddress(event);">
           <ul class="flex-form">
             <li>
-              <label for="amountField">Amount:</label>
-              <input id="amountField" type="text" size=30 name="amount" placeholder="(optional)"></input>
-            </li><li>
               <label for="countryField">Country code:</label>
               <input id="countryField" type="text" name="countryCode" onchange="stripNumbers();" placeholder="1 for US/Canada"></input>
             </li><li>
@@ -223,38 +218,36 @@ html {
             Links to detailed insructions for the most popular exchanges and wallets:
             <UL>
               <LI>
-                <i><a href="">Atomic</a></i>:
+                <i><a href="https://atomicwallet.io/">Atomic</a></i>: see "<a href="https://support.atomicwallet.io/article/76-how-to-send-an-asset-in-atomic-wallet">How to send an asset in Atomic Wallet?</a>"
               </LI>
               <LI>
-                <i><a href="">Binance</a></i>:
+                <i><a href="https://www.binance.com/">Binance</a></i>: see "<a href="https://www.binance.com/en/support/faq/115003670492">How to Withdraw from Binance</a>"
               </LI>
               <LI>
-                <i><a href="">Bitstamp</a></i>:
+                <i><a href="https://www.bitstamp.net/">Bitstamp</a></i>: see "<a href="https://www.bitstamp.net/faq/how-to-withdraw-eth/">How to Withdraw ETH?</a>"
+                (Since the recipient will have the private key, you won't need to worry about it being a smart contract transaction.)
               </LI>
               <LI>
-                <i><a href="">Coinbase</a></i>: see <a href="https://help.coinbase.com/en/coinbase/trading-and-funding/sending-or-receiving-cryptocurrency/how-do-i-send-digital-currency-to-another-wallet.html">How do I send cryptocurrency to another wallet?</a>.
+                <i><a href="https://www.coinbase.com/">Coinbase</a></i>: see <a href="https://help.coinbase.com/en/coinbase/trading-and-funding/sending-or-receiving-cryptocurrency/how-do-i-send-digital-currency-to-another-wallet.html">How do I send cryptocurrency to another wallet?</a>.
                 The address above corresponds to the "wallet address" or "crypto address" in that description.
               </LI>
               <LI>
-                <i><a href="">Exodus</a></i>:
+                <i><a href="https://www.exodus.io/">Exodus</a></i>: see "<a href="https://support.exodus.io/article/34-how-do-i-send-crypto-out-of-exodus">How do I send crypto out of Exodus?</a>"
               </LI>
               <LI>
-                <i><a href="">Gemini</a></i>:
+                <i><a href="https://gemini.com/">Gemini</a></i>: see "<a href="https://support.gemini.com/hc/en-us/articles/115004710226-How-do-I-withdraw-digital-assets-from-my-Gemini-account-">How do I withdraw digital assets from my Gemini account?</a>"
               </LI>
               <LI>
-                <i><a href="">Jaxx</a></i>:
+                <i><a href="https://www.kraken.com/">Kraken</a></i>: see "<a href="https://support.kraken.com/hc/en-us/articles/360000672763-How-to-withdraw-cryptocurrencies-from-your-Kraken-account">How to withdraw cryptocurrencies from your Kraken account</a>"
               </LI>
               <LI>
-                <i><a href="">Kraken</a></i>:
+                <i><a href="https://www.ledger.com/">Ledger</a></i>: see "<a href="https://support.ledger.com/hc/en-us/articles/360000617934-Send-crypto-assets">Send crypto assets</a>"
               </LI>
               <LI>
-                <i><a href="">Ledger</a></i>:
+                <i><a href="https://metamask.io/">Metamask</a></i>: see "<a href="https://metamask.zendesk.com/hc/en-us/articles/360015488991-How-to-Send-ETH">How to send ETH</a>"
               </LI>
               <LI>
-                <i><a href="">Metamask</a></i>:
-              </LI>
-              <LI>
-                <i><a href="">Trezor</a></i>:
+                <i><a href="https://trezor.io/">Trezor</a></i>: see "<a href="https://wiki.trezor.io/User_manual:Making_payments">Making payments</a>"
               </LI>
             </UL>
           </LI>
