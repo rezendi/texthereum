@@ -69,7 +69,7 @@ async function calculateKeyAndAddress(e) {
     mder.update(CryptoApi.encoder.fromArrayBuffer(msgBuffer));
     const addSuffix = CryptoApi.encoder.toHex(mder.finalize());
 
-    const mainnet = true;
+    const mainnet = !document.getElementById("useTestnet").checked;
     const addPrefix = mainnet ? '00' : '6F';
     const address = addPrefix + addSuffix;
     console.log("networked ripemd160 hash", address);
@@ -184,6 +184,9 @@ html {
               <label for="numberField">Password:</label>
               <input id="passwordField" type="password" name="password" placeholder="Password"></input>
               <a href="#" style="text-decoration:none" onclick="showPasswordField();">👁️</a>
+            </li><li>
+              <input id="useTestnet" type="checkbox""/>
+              <label for="useTestnet" style="font-size:smaller;">Generate keys for testnet not mainnet</label>
             </li><li>
               <input id="submitButton" type="submit">
             </li>
