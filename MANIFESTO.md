@@ -73,10 +73,11 @@ then actually send the recipient the generated password. I expect you'll be
 able to think of more yet. This protocol is (deliberately) primitive, but it's
 a primitive atop which more sophisticated services could be built.
 
-Obviously this is an alpha release and you should probably stick to testnets,
-for now. Even if/when you start sending real money, don't send very much.
-(If you're thinking: "gas fees make this prohibitive right now!" -- well,
-there are times when that's true. But Ethereum 2.0 wsould address that.)
+Obviously this is an alpha release -- that's why the HTML is deliberately
+brutalist -- and you should probably stick to testnets, for now. Even if/when
+you start sending real money, don't send very much. (If you're thinking: "gas
+fees make this prohibitive right now!" -- well, there are times when that's
+true. But Ethereum 2.0 wsould address that.)
 
 A few potential use cases spelled out in more detail:
 

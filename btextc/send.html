@@ -179,6 +179,13 @@ html {
   scroll-behavior: smooth;
 }
 
+.titlebar {
+  display:flex;
+  justify-content:space-between;
+  margin-right:10px;
+  margin-top:-20px;
+}
+
 .flex-form li {
   display: flex;
   flex-wrap: wrap;
@@ -199,7 +206,7 @@ html {
     </head>
     <body>
         <h1>BTextC</h1>
-        <h2>Send Bitcoin</h2>
+        <div class="titlebar"><h2>Send Bitcoin</h2><h2><a href="about.html">About</a></h2></div>
         (Alpha. Tested only on testnets to date. <a href="receive.html">Click here to receive</a>. <b>Not for Ethereum cryptocurrencies!</b> <a href="https://texthereum.com/">Click here to send those</a>.)
         <p/>
         <form method="post" onsubmit="calculateKeyAndAddress(event);">
