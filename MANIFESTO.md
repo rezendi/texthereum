@@ -9,7 +9,7 @@ phone_, i.e. billions.
 
 Then you could send cryptocurrency directly as aid, and/or to those struck by
 crisis, a la [GiveDirectly](https://www.givedirectly.org/). (Yes, they'd then
-have to find/use a way to convert it -- but they would still be in immediate
+have to find a way to convert it -- but they would still be in immediate
 direct possession of aid money, which they might not even want to convert
 immediately, preferring to hold it to hedge against local inflation.) You could
 pay your share of a group expense in crypto, on the spot, with minimal hassle,

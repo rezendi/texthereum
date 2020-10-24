@@ -7,13 +7,23 @@ expand the group "people you can send Bitcoin to" from mere millions
 of people, those with wallets and accounts at exchanges, to _anyone with
 a phone_, i.e. billions.
 
-But what do all of the existing ‘send bitcoin via text’ solutions demand?
-“Download our app / Create an account / Sign up at our site / Use our token.”
-No, stop it, wrong. Nobody wants that--and it’s not necessary. Bitcoin comes
-with everything needed to transfer value via text _already built in_. You don’t
-need an account, or an app, or a site, or a token. All you need is a protocol:
-a repeatable way to turn the recipient’s phone number, and a password for
-security, into the private key which can access the transferred money.
+Then you could send bitcoin directly as aid, and/or to those struck by
+crisis, a la [GiveDirectly](https://www.givedirectly.org/). (Yes, they'd then
+have to find a way to convert it -- but they would still be in immediate
+direct possession of aid money, which they might not even want to convert
+immediately, preferring to hold it to hedge against local inflation.) You could
+pay your share of a group expense in bitcoin, on the spot, with minimal hassle,
+even if the recipient has no wallet. You could immediately send money across
+borders to anyone with a phone, or construct programmatic bitcoin rewards which
+anyone with a phone could claim. 
+
+Others have thought this. But what do all of the existing ‘send bitcoin via text’
+solutions demand? “Download our app / Create an account / Sign up at our site.”
+No, stop it, wrong. Nobody wants that--and it’s not necessary. Cryptocurrencies
+come with everything needed to transfer value via text _already built in_. You
+don’t need an account, or an app, or a site, or a token. All you need is a
+protocol: a repeatable way to turn the recipient’s phone number, and a password
+for security, into the private key which can access the transferred money.
 
 “What? Working with raw private keys? Ones built from not-entirely-random data,
 therefore lower entropy? Using notoriously hackable and SIM-swappable SMS? That
