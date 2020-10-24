@@ -73,7 +73,7 @@ able to think of more yet. This protocol is (deliberately) primitive, but it's
 a primitive atop which more sophisticated services could be built.
 
 Obviously this is an alpha release -- that's why the HTML is deliberately
-bruralist -- and you should probably stick to testnets, for now. Even if/when
+brutalist -- and you should probably stick to testnets, for now. Even if/when
 you start sending real money, don't send very much.
 
 A few potential use cases spelled out in more detail:
