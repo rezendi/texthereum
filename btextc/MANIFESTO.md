@@ -3,7 +3,7 @@ The BTextC Manifesto
 
 It should be easy to send small(ish) amounts of bitcoin via text message.
 The recipient shouldn’t need a wallet, or an app, or an account. This would
-expand the group "people you can send Bitcoin to" from the mere millions
+expand the group "people you can send Bitcoin to" from mere millions
 of people, those with wallets and accounts at exchanges, to _anyone with
 a phone_, i.e. billions.
 
