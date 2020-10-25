@@ -108,7 +108,7 @@ get the private key, and claim its contents.
 addresses, Twitter handles, or any other kind of unique identifier.
 
 Of course, senders still have to perform the actual blockchain transfers
-themselves. (A higher-level service _could_ do this, but of course would have
+themselves. (A higher-level service _could_ do this, but would have
 to be a registered and regulated money transmitter, in most countries.)
 Texthereum can’t help with that user experience, or the recpient’s experience
 once they receive their cryptocurrency.
