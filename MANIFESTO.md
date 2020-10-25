@@ -66,12 +66,11 @@ just a convenience and a reference implementation. You can do it all yourself
 on an air-gapped computer in an underground bunker if you really want.
 
 Note also that there's room for higher-level services here, such as a service
-to generate the password and host it (but not the money!) in a kind of password
-escrow, send an initial text to ensure the number is correct by having the
-recipient verify obscure/trivial knowledge shared by both parties, and only
-then actually send the recipient the generated password. I expect you'll be
-able to think of more yet. This protocol is (deliberately) primitive, but it's
-a primitive atop which more sophisticated services could be built.
+to 1. generate the password and host it (but not the money!) in a kind of password
+escrow, 2. ensure the number is correct by having the recipient verify obscure/trivial
+knowledge shared by both parties, and only then 3. actually send the recipient the
+password. I expect you'll be able to think of more yet. This protocol is (deliberately)
+primitive, but it's a primitive atop which more sophisticated services could be built.
 
 Obviously this is an alpha release -- that's why the HTML is deliberately
 brutalist -- and you should probably stick to testnets, for now. Even if/when

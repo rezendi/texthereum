@@ -65,12 +65,11 @@ just a convenience and a reference implementation. You can do it all yourself
 on an air-gapped computer in an underground bunker if you really want.
 
 Note also that there's room for higher-level services here, such as a service
-to generate the password and host it (but not the money!) in a kind of password
-escrow, send an initial text to ensure the number is correct by having the
-recipient verify obscure/trivial knowledge shared by both parties, and only
-then actually send the recipient the generated password. I expect you'll be
-able to think of more yet. This protocol is (deliberately) primitive, but it's
-a primitive atop which more sophisticated services could be built.
+to 1. generate the password and host it (but not the money!) in a kind of password
+escrow, 2. ensure the number is correct by having the recipient verify obscure/trivial
+knowledge shared by both parties, and only then 3. actually send the recipient the
+password. I expect you'll be able to think of more yet. This protocol is (deliberately)
+primitive, but it's a primitive atop which more sophisticated services could be built.
 
 Obviously this is an alpha release -- that's why the HTML is deliberately
 brutalist -- and you should probably stick to testnets, for now. Even if/when
@@ -98,10 +97,9 @@ The hard part is now the witty password.
 reward whoever solves a puzzle first**. You do this by making its solutions
 a 15-digit number and a password. Then whoever gets it first can go to
 [BTextC.com/receive](https://btextc.com/receive), enter those values, get the
-private key, and claim its contents. Think about it a while and I bet you’ll
-come up with some other non-phone use cases too...
+private key, and claim its contents.
 
-4. This doesn't just work for phone numbers. It could also be used for email
+4. This **doesn't just work for phone numbers**. It could also be used for email
 addresses, Twitter handles, or any other kind of unique identifier.
 
 Of course, senders still have to perform the actual blockchain transfers

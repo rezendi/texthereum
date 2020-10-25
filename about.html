@@ -70,12 +70,11 @@ formal / secure wallet, then perhaps exchanged for fiat.</li>
 just a convenience and a reference implementation. You can do it all yourself
 on an air-gapped computer in an underground bunker if you really want.</p>
 <p>Note also that there's room for higher-level services here, such as a service
-to generate the password and host it (but not the money!) in a kind of password
-escrow, send an initial text to ensure the number is correct by having the
-recipient verify obscure/trivial knowledge shared by both parties, and only
-then actually send the recipient the generated password. I expect you'll be
-able to think of more yet. This protocol is (deliberately) primitive, but it's
-a primitive atop which more sophisticated services could be built.</p>
+to 1. generate the password and host it (but not the money!) in a kind of password
+escrow, 2. ensure the number is correct by having the recipient verify obscure/trivial
+knowledge shared by both parties, and only then 3. actually send the recipient the
+password. I expect you'll be able to think of more yet. This protocol is (deliberately)
+primitive, but it's a primitive atop which more sophisticated services could be built.</p>
 <p>Obviously this is an alpha release -- that's why the HTML is deliberately
 brutalist -- and you should probably stick to testnets, for now. Even if/when
 you start sending real money, don't send very much. (If you're thinking: "gas
@@ -110,7 +109,7 @@ a 15-digit number and a password. Then whoever gets it first can go to
 get the private key, and claim its contents.</p>
 </li>
 <li>
-<p>This doesn't just work for phone numbers. It could also be used for email
+<p>This <strong>doesn't just work for phone numbers</strong>. It could also be used for email
 addresses, Twitter handles, or any other kind of unique identifier.</p>
 </li>
 </ol>
