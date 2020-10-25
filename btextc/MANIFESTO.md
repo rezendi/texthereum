@@ -116,4 +116,4 @@ You may be wondering: can you do this with Ethereum too? And the answer is:
 you sure can. The algorithms are just a little different. See the very similar
 [Texthereum Manifesto](https://github.com/rezendi/texthereum/blob/main/MANIFESTO.md)...
 
-If you're interested in this project, feel free to contact me at [info@btextc.com](mailto:info@btextc.com)
+If you're interested in this project, feel free to contact me at [info@btextc.com](mailto:info@btextc.com).

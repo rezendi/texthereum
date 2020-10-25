@@ -121,4 +121,4 @@ You may be wondering: can you do this with Bitcoin too? And the answer is:
 you sure can. The algorithms are just a little different. See the very similar
 [BTextC Manifesto](https://github.com/rezendi/texthereum/blob/main/btextc/MANIFESTO.md)...
 
-If you're interested in this project, feel free to contact me at [info@texthereum.com](mailto:info@texthereum.com)
+If you're interested in this project, feel free to contact me at [info@texthereum.com](mailto:info@texthereum.com).
