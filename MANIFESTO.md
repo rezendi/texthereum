@@ -76,7 +76,7 @@ Obviously this is an alpha release -- that's why the HTML is deliberately
 brutalist -- and you should probably stick to testnets, for now. Even if/when
 you start sending real money, don't send very much. (If you're thinking: "gas
 fees make this prohibitive right now!" -- well, there are times when that's
-true. But Ethereum 2.0 wsould address that.)
+true. But Ethereum 2.0 will presumably address that.)
 
 A few potential use cases spelled out in more detail:
 
